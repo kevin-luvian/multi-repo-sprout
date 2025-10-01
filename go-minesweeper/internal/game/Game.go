@@ -56,7 +56,16 @@ func (g *Game) RedrawBoard() {
 }
 
 func (g *Game) PutRandomMines(n int) {
-	for range n {
-		g.Board.PutMine(rand.Intn(g.Board.Size), rand.Intn(g.Board.Size))
+	count := 0
+
+	for {
+		if count >= n {
+			break
+		}
+
+		ok := g.Board.PutMine(rand.Intn(g.Board.Size), rand.Intn(g.Board.Size))
+		if ok {
+			count += 1
+		}
 	}
 }

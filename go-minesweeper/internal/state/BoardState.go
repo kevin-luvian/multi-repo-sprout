@@ -95,7 +95,11 @@ func (b *BoardState) RevealAllMines() {
 	}
 }
 
-func (b *BoardState) PutMine(x, y int) {
+func (b *BoardState) PutMine(x, y int) (ok bool) {
+	if b.Board[x][y].IsMine {
+		return false
+	}
+
 	b.Board[x][y].IsMine = true
 	originX := x
 	originY := y
@@ -114,4 +118,6 @@ func (b *BoardState) PutMine(x, y int) {
 
 		b.Board[x][y].Increment()
 	}
+
+	return true
 }

@@ -46,8 +46,12 @@ func NewStartCommand(size, mines string) (Command, error) {
 		return Command{}, err
 	}
 
-	if sizeInt < 0 || minesInt <= 0 || minesInt >= sizeInt*sizeInt {
+	if sizeInt < 0 || minesInt <= 0 {
 		return Command{}, errors.New("invalid start command format")
+	}
+
+	if minesInt >= sizeInt*sizeInt {
+		return Command{}, errors.New("mines cannot be greater than the board size")
 	}
 
 	return Command{
